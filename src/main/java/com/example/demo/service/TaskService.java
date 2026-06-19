@@ -1,18 +1,23 @@
 package com.example.demo.service;
+import com.example.demo.dto.CreateTaskRequest;
+import com.example.demo.dto.TaskResponseRequest;
+import com.example.demo.dto.UpdateTaskRequest;
 import com.example.demo.entity.task;
 import java.util.List;
 
 public interface TaskService {
 
-    task createTask(task T);
+    TaskResponseRequest createTask(CreateTaskRequest T);
 
-    List<task> getAllTasks();
+    List<TaskResponseRequest> getAllTasks();
 
-    task getTaskById(Long id);
+    TaskResponseRequest getTaskById(Long id);
 
-    task updateTask(Long id, task Tk);
+
+    TaskResponseRequest updateTask(Long id, UpdateTaskRequest  Tk);
 
     void deleteTask(Long id);
 
-    task completeTask(Long id);
+
+    TaskResponseRequest  completeTask(Long id);
 }
