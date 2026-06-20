@@ -6,6 +6,7 @@ import com.example.demo.dto.TaskResponseRequest;
 import com.example.demo.dto.UpdateTaskRequest;
 import com.example.demo.entity.*;
 import com.example.demo.Mapper.TaskMapper;
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 
@@ -57,7 +58,7 @@ public class TaskServiceImpl implements TaskService {
 
         task task = repository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("Task not found with id: " + id));
+                        new ResourceNotFoundException("Task not found with id: " + id);
 
         return TaskMapper.toResponse(task);
     }
@@ -86,7 +87,7 @@ public class TaskServiceImpl implements TaskService {
     public void deleteTask(Long id) {
 
         if (!repository.existsById(id)) {
-            throw new RuntimeException("Task not found with id: " + id);
+            throw new ResourceNotFoundException("Task not found with id: " + id);
         }
 
         repository.deleteById(id);
@@ -97,7 +98,7 @@ public class TaskServiceImpl implements TaskService {
 
         task task = repository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("Task not found with id: " + id));
+                        new ResourceNotFoundException("Task Not Found"));
 
         task.setStatus(status.COMPLETED);
         task.setUpdatedAt(LocalDateTime.now());
