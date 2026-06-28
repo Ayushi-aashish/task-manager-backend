@@ -8,7 +8,13 @@ import com.example.demo.entity.*;
 import com.example.demo.Mapper.TaskMapper;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.TaskRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
+
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -46,11 +52,13 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<TaskResponseRequest> getAllTasks() {
+    public Page<TaskResponseRequest> getAllTasks(int page, int size) {
 
-        List<task> tasks = repository.findAll();
+        Pageable pageable = PageRequest.of(page, size);
 
-        return TaskMapper.toResponseList(tasks);
+        Page<task> tasks = repository.findAll(pageable);
+
+        return tasks.map(TaskMapper::toResponse);
     }
 
     @Override
@@ -58,7 +66,7 @@ public class TaskServiceImpl implements TaskService {
 
         task task = repository.findById(id)
                 .orElseThrow(() ->
-                        new ResourceNotFoundException("Task not found with id: " + id);
+                        new ResourceNotFoundException("Task not found with id: " + id));
 
         return TaskMapper.toResponse(task);
     }

@@ -5,6 +5,7 @@ import com.example.demo.dto.TaskResponseRequest;
 import com.example.demo.dto.UpdateTaskRequest;
 import com.example.demo.service.TaskService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,8 +34,13 @@ public class TaskController {
      * GET /tasks
      */
     @GetMapping
-    public List<TaskResponseRequest> getAllTasks() {
-        return taskService.getAllTasks();
+    public Page<TaskResponseRequest> getAllTasks(
+
+            @RequestParam(defaultValue = "0") int page,
+
+            @RequestParam(defaultValue = "5") int size) {
+
+        return taskService.getAllTasks(page, size);
     }
 
     /**

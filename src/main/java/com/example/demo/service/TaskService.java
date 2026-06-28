@@ -3,13 +3,15 @@ import com.example.demo.dto.CreateTaskRequest;
 import com.example.demo.dto.TaskResponseRequest;
 import com.example.demo.dto.UpdateTaskRequest;
 import com.example.demo.entity.task;
+import org.springframework.data.domain.Page;
+
 import java.util.List;
 
 public interface TaskService {
 
     TaskResponseRequest createTask(CreateTaskRequest T);
 
-    List<TaskResponseRequest> getAllTasks();
+    Page<TaskResponseRequest> getAllTasks(int page, int size);
 
     TaskResponseRequest getTaskById(Long id);
 
