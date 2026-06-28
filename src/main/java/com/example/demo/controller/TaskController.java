@@ -38,9 +38,9 @@ public class TaskController {
 
             @RequestParam(defaultValue = "0") int page,
 
-            @RequestParam(defaultValue = "5") int size) {
+            @RequestParam(defaultValue = "5") int size,@RequestParam(defaultValue = "id") String sort_by,@RequestParam(defaultValue = "asc") String direction) {
 
-        return taskService.getAllTasks(page, size);
+        return taskService.getAllTasks(page, size,sort_by,direction);
     }
 
     /**

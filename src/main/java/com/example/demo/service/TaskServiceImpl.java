@@ -2,18 +2,13 @@ package com.example.demo.service;
 
 import com.example.demo.dto.CreateTaskRequest;
 import com.example.demo.dto.TaskResponseRequest;
-import com.example.demo.dto.TaskResponseRequest;
 import com.example.demo.dto.UpdateTaskRequest;
 import com.example.demo.entity.*;
 import com.example.demo.Mapper.TaskMapper;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.TaskRepository;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.PageRequest;
 
 
 import java.time.LocalDateTime;
@@ -52,9 +47,21 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Page<TaskResponseRequest> getAllTasks(int page, int size) {
+    public Page<TaskResponseRequest> getAllTasks(int page, int size,String sortBy,String direction) {
 
-        Pageable pageable = PageRequest.of(page, size);
+        Sort sort;
+
+        if (direction.equalsIgnoreCase("desc")) {
+
+            sort = Sort.by(sortBy).descending();
+
+        } else {
+
+            sort = Sort.by(sortBy).ascending();
+
+        }
+
+        Pageable pageable = PageRequest.of(page, size,sort);
 
         Page<task> tasks = repository.findAll(pageable);
 
