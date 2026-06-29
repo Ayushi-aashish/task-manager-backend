@@ -77,6 +77,21 @@ public class TaskServiceImpl implements TaskService {
 
         return TaskMapper.toResponse(task);
     }
+    @Override
+    public List<TaskResponseRequest> getTaskByStatus(status st){
+        return TaskMapper.toResponseList(
+                repository.findByStatus(st));
+    }
+    @Override
+    public List<TaskResponseRequest> getTasksByPriority(priority pr){
+        return TaskMapper.toResponseList(
+                repository.findByPriority(pr));
+    }
+    @Override
+    public List<TaskResponseRequest> searchTasks(String title){
+        return TaskMapper.toResponseList(
+                repository.findByTitleContainingIgnoreCase(title));
+    }
 
     @Override
     public TaskResponseRequest updateTask(Long id, UpdateTaskRequest request) {

@@ -3,6 +3,8 @@ package com.example.demo.controller;
 import com.example.demo.dto.CreateTaskRequest;
 import com.example.demo.dto.TaskResponseRequest;
 import com.example.demo.dto.UpdateTaskRequest;
+import com.example.demo.entity.priority;
+import com.example.demo.entity.status;
 import com.example.demo.service.TaskService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -52,6 +54,25 @@ public class TaskController {
         return taskService.getTaskById(id);
     }
 
+    @GetMapping("/status/{status}")
+    public List<TaskResponseRequest> getByStatus(
+            @PathVariable status st) {
+
+        return taskService.getTaskByStatus(st);
+    }
+    @GetMapping("/priority/{prior}")
+    public List<TaskResponseRequest> getByPriority(
+            @PathVariable priority pr) {
+
+        return taskService.getTasksByPriority(pr);
+    }
+
+    @GetMapping("/search")
+    public List<TaskResponseRequest> search(
+            @RequestParam String title) {
+
+        return taskService.searchTasks(title);
+    }
     /**
      * Update a task
      * PUT /tasks/{id}

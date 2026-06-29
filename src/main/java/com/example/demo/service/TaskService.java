@@ -2,6 +2,8 @@ package com.example.demo.service;
 import com.example.demo.dto.CreateTaskRequest;
 import com.example.demo.dto.TaskResponseRequest;
 import com.example.demo.dto.UpdateTaskRequest;
+import com.example.demo.entity.priority;
+import com.example.demo.entity.status;
 import com.example.demo.entity.task;
 import org.springframework.data.domain.Page;
 
@@ -14,6 +16,13 @@ public interface TaskService {
     Page<TaskResponseRequest> getAllTasks(int page, int size,String sort_by,String direction);
 
     TaskResponseRequest getTaskById(Long id);
+    List<TaskResponseRequest> getTaskByStatus(status st);
+
+    List<TaskResponseRequest> getTasksByPriority(priority prio);
+
+    List<TaskResponseRequest> searchTasks(String title);
+
+
 
 
     TaskResponseRequest updateTask(Long id, UpdateTaskRequest  Tk);
